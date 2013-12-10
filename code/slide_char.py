@@ -112,7 +112,7 @@ class SlidingWindow(object):
         '''
         w = self.width
         h = self.height
-        r = []
+        res2 = []
         pmax = [r[4] for r in res]
         while len(res)!=0:
             i0 = np.argmax(pmax)
@@ -132,11 +132,11 @@ class SlidingWindow(object):
                     del pmax[i]
                 else:
                     i+=1
-            r.append((np.mean(l,axis=0), c[2], c[5]))
+            xy = np.mean(l, axis=0)
+            res2.append(((xy[0], xy[1]), c[2], c[5]))
             
-        return r        
-
-
+        return res2 
+        
 if __name__== '__main__':
     from sklearn import svm
     from sklearn.preprocessing import LabelEncoder

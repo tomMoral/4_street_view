@@ -83,6 +83,6 @@ im = im.resize([int(args.s*s) for s in im.size])
 res = slide.detection(im, 0.1, 0.2)
 
 from utils import display_char
-display_char(res, args.c, w, h, im)
+display_char(res, w, h, im)
 
 

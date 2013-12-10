@@ -25,28 +25,18 @@ class GraphicalModel(object):
         '''
         create a model for the decision fo the word
         '''
-        l = 0
-        for m in mapc:
-            l += len(m)
-        i = 0
+        i0 = np.argsort(mapc, axis=0)[:,0]
         v = []
-        while i < l:
-            xy = mapc[0][0][0]
-            km = 0
-            for k in range(1,K):
-                if xy > mapc[k][0][0]:
-                    xy = mapc[k][0][0]
-                    km = k
-            p = mapc[km][0][1]
+        for i in i0:
+            p = mapc[i][1]
             Eu = {}
-            for i in range(len(p)):
-                Eu[enc.inverse_transform(i)] = 1-p[i]
-            Eu['.'] = mapc[km][0][2]
-            v.append([xy, Eu])
-            del mapc[km][0]
+            for k in range(len(p)):
+                Eu[enc.inverse_transform(k)] = 1-p[k]
+            Eu['.'] = mapc[i][2]
+            v.append([mapc[i][0], Eu])
         self.vertices = v
 
-        self.edges
+        self.edges = []
         for i,v1 in enumerate(self.vertices):
             for j, v2 in enumerate(self.vertices[i+1:]):
                 dx = abs(v2[0][0]-v1[0][0])
@@ -55,8 +45,8 @@ class GraphicalModel(object):
                     intersec = (h-min(h,abs(v2[0][0]-v1[0][0])))
                     intersec *= (w-min(w,abs(v2[0][1]-v1[0][1])))
                     self.edges.append((i,j,intersec))
-                
-    
+        
+
     def CRF_enregy(self, word):
         CRFE = 0
         for i, c in enumerate(word):
