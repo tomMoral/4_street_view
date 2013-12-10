@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 
 import pyximport
@@ -34,11 +35,11 @@ class SlidingWindow(object):
         X_feat = []
         AR = [[] for i in range(self.K)]
         for i, im in enumerate(X):
-            ai = im.size[0]/im.size[1]
+            ai = im.size[0]*1./im.size[1]
             AR[y[i]].append(ai)
             im_r = im.resize((22,20))
             X_feat.append(hog(im_r,4).reshape((-1,)))
-
+        
         for i in range(self.K):
             y_feat = (y==i)
             self.model[i].fit(X_feat, y_feat)
@@ -61,7 +62,9 @@ class SlidingWindow(object):
         
         for i in range(w0):
             for j in range(h0):
-                print '{:6.2%}'.format((i*h0+j)*1./Ntot)
+                sys.stdout.write('\rChar detect...{:6.2%}'.format(
+                                    (i*h0+j)*1./Ntot))
+                sys.stdout.flush()
                 X = im.crop((i,j,i+w,j+h))
                 X_r = X.resize((22,20))
                 X_feat = hog(X_r,4).reshape((1,-1))
@@ -70,13 +73,17 @@ class SlidingWindow(object):
                     p.append(self.model[k].predict_proba(X_feat)[0,1])
                 cj = np.argmax(p)
                 muj,sigj = self.AR[cj]
-                GS = p[cj]*np.exp(-(muj-a)/(2*sigj))
+                GS = p[cj]*np.exp(-(muj-a)**2/(2*sigj))
                 if GS > th1:
                     for k in range(self.K):
                         res[k].append((i,j,p[k]))
+        print '\rChar detect...done  '
         res2 = []
         for k in range(self.K):
+            sys.stdout.write('\rNMS...{:6.2%}'.format(k*1./self.K))
+            sys.stdout.flush()
             res2.append(self.NMS(res[k], th))
+        print '\rNMS...done  '
         return res2
 
     def NMS(self, res, th):
@@ -98,7 +105,7 @@ class SlidingWindow(object):
                 intersec *= (w-min(w,abs(c2[1]-c[1])))
                 criterion = intersec / (2.*h*w - intersec)
                 if criterion > th:
-                    l.append(c2[:2])
+                    #l.append(c2[:2])
                     del res[i]
                 else:
                     i+=1
@@ -116,7 +123,7 @@ if __name__== '__main__':
     import joblib
 
     w = 15
-    h = 15
+    h = 20
 
     test = SlidingWindow(w, h)
     if not os.path.exists('../data/model/model.pickle'):

@@ -9,3 +9,4 @@ def display_char(L, c, w, h, im, col='blue'):
         ax.add_patch(Rectangle(rect[0], w, h, fc='none', ec=col))
     ax.autoscale_view()
     plt.imshow(im)
+    plt.show()
