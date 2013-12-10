@@ -22,6 +22,7 @@ class SlidingWindow(object):
         self.height = h
         self.K = 61
         self.model = []
+        from sklearn import svm
         for i in range(self.K):
             self.model.append(svm.SVC(probability=True))
 
@@ -113,7 +114,11 @@ if __name__== '__main__':
     import os
     import Image
     import joblib
-    test = SlidingWindow(30,24)
+
+    w = 15
+    h = 15
+
+    test = SlidingWindow(w, h)
     if not os.path.exists('../data/model/model.pickle'):
 
         filenames = np.load('../data/char/list_char.npy')
@@ -142,9 +147,9 @@ if __name__== '__main__':
 
     plt.clf()
     ax = plt.gca()
-    for r in res[0]:
-        ax.add_patch(Rectangle(r[0],22,20))
+    for r in res[10]:
+        ax.add_patch(Rectangle(r[0],w ,h, fc='none', ec='blue'))
     ax.autoscale_view()
+    plt.imshow(im)
     plt.show()
-    ax = plt.gca()
 
