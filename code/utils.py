@@ -23,7 +23,7 @@ def extract_xml(fname, base_dir = '../data/'):
     for child in root:
         if child.get('tag') not in ['(',')','!','&','?',
                                     '.','"',"'",'-',':',
-                                    u'\xa3', u'\xc9',
+                                    u'\xa3', u'\xc9',',',
                                     u'\xd1', u'\xe9']:
             filenames.append(jp(base_dir, child.get('file')))
             labels.append(child.get('tag'))

@@ -46,6 +46,25 @@ class SlidingWindow(object):
         self.AR = np.array([[np.mean(AR[i]),np.var(AR[i])] for i in
         range(self.K)])
 
+    def test(self, X, y):
+        '''
+        Test model on the observation (X,y)
+        '''
+        y = np.array(y)
+        X_feat = []
+        AR = [[] for i in range(self.K)]
+        for i, im in enumerate(X):
+            ai = im.size[0]*1./im.size[1]
+            AR[y[i]].append(ai)
+            im_r = im.resize((22,20))
+            X_feat.append(hog(im_r,4).reshape((-1,)))
+        import IPython
+        IPython.embed()
+        for i in range(self.K):
+            y_feat = (y==i)
+            y_pred = self.model[i].predict(X_feat)
+
+
     def detection(self, im, th, th1=0.1):
         '''
         Perform the sliding window detection on im
