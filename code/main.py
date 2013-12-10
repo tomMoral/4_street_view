@@ -76,6 +76,7 @@ if args.t:
         X_tst.append(im.resize([int(s2*s) for s in im.size]))
         del im
     slide.test(X_tst,y_tst)
+    sys.exit()
 
 im = Image.open(jp(args.dir, args.im))
 im = im.resize([int(args.s*s) for s in im.size])

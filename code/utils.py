@@ -11,10 +11,11 @@ def display_char(L, c, w, h, im, col='blue'):
     plt.imshow(im)
     plt.show()
 
-def extract_xml(fname, base_dir = '../data/'):
-    from os.path.join import join as jp
-    from xml.etree.ElementTree as ET
-    tree = ET.parse(fname)
+def extract_xml(fname, base_dir = '../data/char'):
+    import numpy as np
+    from os.path import join as jp
+    import xml.etree.ElementTree as ET
+    tree = ET.parse(jp(base_dir, fname))
     root = tree.getroot()
 
     filenames = []
@@ -24,10 +25,10 @@ def extract_xml(fname, base_dir = '../data/'):
         if child.get('tag') not in ['(',')','!','&','?',
                                     '.','"',"'",'-',':',
                                     u'\xa3', u'\xc9',',',
-                                    u'\xd1', u'\xe9']:
+                                    u'\xd1', u'\xe9','z']:
             filenames.append(jp(base_dir, child.get('file')))
             labels.append(child.get('tag'))
 
-    np.save('list_char', filenames)
-    np.save('lab_char', labels)
+    np.save(jp(base_dir,'list_char'), filenames)
+    np.save(jp(base_dir,'lab_char'), labels)
 

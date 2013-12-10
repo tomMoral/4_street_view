@@ -52,17 +52,25 @@ class SlidingWindow(object):
         '''
         y = np.array(y)
         X_feat = []
-        AR = [[] for i in range(self.K)]
+        AR = []
         for i, im in enumerate(X):
             ai = im.size[0]*1./im.size[1]
-            AR[y[i]].append(ai)
+            AR.append(ai)
             im_r = im.resize((22,20))
             X_feat.append(hog(im_r,4).reshape((-1,)))
-        import IPython
-        IPython.embed()
-        for i in range(self.K):
-            y_feat = (y==i)
-            y_pred = self.model[i].predict(X_feat)
+        p = []
+        for k in range(self.K):
+            p.append(self.model[k].predict_proba(X_feat)[:,1])
+        p = np.array(p)
+        i0 = p.argmax(axis=0)
+        AR = np.array(AR)
+
+        detect = np.exp(-(self.AR[i0,0]-AR[i0])**2/(2*self.AR[i0,1]))
+        GS = np.multiply(p[i0, range(y.shape[0])], detect)
+        
+        err = 1- (GS>0.1).sum()*1./y.shape[0]
+        print ('\nThis model miss {:6.2%} of the'
+               ' character in the test db').format(err)
 
 
     def detection(self, im, th, th1=0.1):

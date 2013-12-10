@@ -1,6 +1,6 @@
 import numpy as np
 
-class GraphicalModeal(object):
+class GraphicalModel(object):
     '''
     Graphical model used for the word decision
 
