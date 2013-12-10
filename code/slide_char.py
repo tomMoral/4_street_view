@@ -43,8 +43,8 @@ class SlidingWindow(object):
         for i in range(self.K):
             y_feat = (y==i)
             self.model[i].fit(X_feat, y_feat)
-        self.AR = np.array([[np.mean(AR[i]),np.var(AR[i])] for i in
-        range(self.K)])
+        self.AR = np.array([[np.mean(AR[i]),np.var(AR[i])] 
+                             for i in range(self.K)])
 
     def test(self, X, y):
         '''
@@ -81,10 +81,10 @@ class SlidingWindow(object):
         '''
         w = self.width
         h = self.height
-        a = w/h
+        a = w*1./h
         w0 = im.size[0] - w
         h0 = im.size[1] - h
-        res = [[] for i in range(self.K)]
+        res = []
         Ntot = w0*h0
         
         for i in range(w0):
@@ -102,16 +102,9 @@ class SlidingWindow(object):
                 muj,sigj = self.AR[cj]
                 GS = p[cj]*np.exp(-(muj-a)**2/(2*sigj))
                 if GS > th1:
-                    for k in range(self.K):
-                        res[k].append((i,j,p[k]))
+                    res.append((i,j,p, cj, p[cj], GS))
         print '\rChar detect...done  '
-        res2 = []
-        for k in range(self.K):
-            sys.stdout.write('\rNMS...{:6.2%}'.format(k*1./self.K))
-            sys.stdout.flush()
-            res2.append(self.NMS(res[k], th))
-        print '\rNMS...done  '
-        return res2
+        return self.NMS(res, th)
 
     def NMS(self, res, th):
         '''
@@ -120,10 +113,12 @@ class SlidingWindow(object):
         w = self.width
         h = self.height
         r = []
+        pmax = [r[4] for r in res]
         while len(res)!=0:
-            i0 = np.argmax(res, axis=0)[2]
+            i0 = np.argmax(pmax)
             c = res[i0]
             del res[i0]
+            del pmax[i0]
             l = [c[:2]]
             i = 0
             while i < len(res):
@@ -131,12 +126,13 @@ class SlidingWindow(object):
                 intersec = (h-min(h,abs(c2[0]-c[0])))
                 intersec *= (w-min(w,abs(c2[1]-c[1])))
                 criterion = intersec / (2.*h*w - intersec)
-                if criterion > th:
-                    #l.append(c2[:2])
+                if criterion > th and c[3] == c2[3]:
+                    l.append(c2[:2])
                     del res[i]
+                    del pmax[i]
                 else:
                     i+=1
-            r.append((np.mean(l,axis=0), c[2]))
+            r.append((np.mean(l,axis=0), c[2], c[5]))
             
         return r        
 
@@ -150,7 +146,7 @@ if __name__== '__main__':
     import joblib
 
     w = 15
-    h = 20
+    h = 17
 
     test = SlidingWindow(w, h)
     if not os.path.exists('../data/model/model.pickle'):

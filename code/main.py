@@ -80,7 +80,9 @@ if args.t:
 
 im = Image.open(jp(args.dir, args.im))
 im = im.resize([int(args.s*s) for s in im.size])
-res = slide.detection(im, 0.1, 0.1)
+res = slide.detection(im, 0.1, 0.2)
 
 from utils import display_char
 display_char(res, args.c, w, h, im)
+
+
