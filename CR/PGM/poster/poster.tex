@@ -1,0 +1,224 @@
+\documentclass[landscape,a0b,final]{a0poster}
+
+
+\usepackage{epsfig}
+\usepackage{multicol}
+\usepackage[all]{xy}
+\usepackage{graphicx}
+\usepackage{pstricks,pst-grad}
+\usepackage[english]{babel}
+%\usepackage[latin9]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{url}
+
+
+
+%ATTENTION: A COMPILER EN DVI => PDF
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%longueurs
+\setlength{\columnsep}{3cm}
+\setlength{\columnseprule}{2mm}
+\setlength{\parindent}{0.0cm}
+
+
+
+\paperwidth 841mm
+\paperheight 1190mm
+
+
+%couleurs
+
+\newrgbcolor{lightblue}{0. 0. 0.80} %Couleurs bordures
+\newrgbcolor{white}{1. 1. 1.}   %Couleurs fond
+\newrgbcolor{whiteblue}{.80 .80 1.}  %Couleurs fond titres
+
+
+%%%                colonne                       %%%
+
+%colonne normale
+\newenvironment{colonne}[1]{
+  \begin{minipage}{#1\textwidth}
+
+} {
+
+  \end{minipage}
+}
+
+%%%                box                         %%%
+
+
+\newcommand{\pbox}[4]{
+\psshadowbox[#3]{
+\begin{minipage}[t][#2][t]{#1}
+#4
+\end{minipage}
+}}
+
+
+
+%%%                image                         %%%
+
+% \image : remplace \figure pour un environement multicolonne
+
+\newcommand{\image}[3][0]{
+\begin{center}
+  \vspace{1.5cm}
+  \includegraphics[width=#3\hsize,angle=#1]{#2}
+  \nobreak\medskip
+\end{center}}
+
+% \legende : remplace \caption
+
+%\newcounter{figure}
+\setcounter{figure}{1}
+\newcommand{\legende}[1]{
+  \vspace{0.5cm}
+  \begin{quote}
+    {{\sc Figure} \arabic{figure}: #1}
+  \end{quote}
+  \vspace{1cm}
+  \stepcounter{figure}
+}
+
+
+
+\begin{document}
+\begin{center}
+%\includegraphics[height=7cm]{IECN.eps}\hspace*{10cm}\includegraphics[height=7cm]{CNRS.eps}\hspace{8cm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       \section{titre}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tabular}{cr}
+{\textcolor{blue}{\Huge {\sc Scene Text Recognition}}}\\[10mm]
+{\Large Vincent BODIN \& Thomas MOREAU}\\
+\hrulefill
+\end{tabular}
+
+
+\vspace{3cm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       \section{intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{center}
+\begin{colonne}{0.8}
+
+\emph{Scene text recognition refers to finding automatic ways of extracting text in pictures of every day life. As computer vision is more and more successful, scene text recognition has naturally become a significant issue nowadays. Unlike OCR which is more or less well understood and implemented, scene text recognition still needs many improvement to be considered as a powerful tool. We implemented paper \cite{Mis} that explains how to extract words efficiently. A graphical model is introduced inside, with the creation of graph represented possible detected words, and algorithm TRW-S \cite{Kol} is used to extract the optimal one. }
+\end{colonne}
+\end{center}
+
+
+\vspace{1cm}
+
+
+
+
+
+
+%Gestion des colonnes: \begin{colonne}{largeur de la colonne par rapport ˆ la page}
+%Gestion des contours des bo”tes dans les colonnes: \pbox{largeur du texte\textwidth}{longueur de la bo”te}
+
+
+
+
+
+\begin{colonne}{0.3}
+\pbox{0.9\textwidth}{56cm}{linewidth=2mm,framearc=0.1,linecolor=blue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Partie 1
+\begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{
+\begin{center}\blue 
+\section{Word recognition}
+\end{center}}\end{center}\vspace{1.25cm}
+
+This first part of the project has been done as a project for the course \emph{Object recognition and computer vision}. It consists in:
+\begin{enumerate}
+\item Train classifiers: for every possible character in the English language, train a SVM with a RBF kernel (one-versus-all procedure). The database used is ICDAR 2003 \cite{ICDAR}. Evaluate on a dictionary the frequency of occurrence of each pair of characters.
+\item Recognizing character: performed via sliding window detection. For each possible window, compute the likelihood of each character and keep it if it has a confidence high enough.
+\item Building words: build a graph of windows close enough in the x-direction. Attribute an energy to each possible word an energy depending on the lexicon prior. 
+\item Minimization of CRF energy: minimize this discrete energy using TRW-S algorithm \cite{Kol}.
+\end{enumerate}
+\vspace{0.3cm}
+
+\red PICTURES \black
+%\textbf{Exemple: petit graphique avec pleins de couleurs}\\
+
+%\hspace*{4cm}\includegraphics[height=15cm]{image.eps}\\
+%\vspace*{4cm}
+%\hspace{3cm} Fig.1: Whaaaaa, c'est beau !!
+
+}
+\end{colonne}
+\begin{colonne}{0.3}
+\pbox{0.9\textwidth}{42cm}{linewidth=2mm,framearc=0.1,linecolor=blue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Partie 2
+\begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{
+\begin{center}\blue 
+\section{TRW-S Algorithm}
+\end{center}}\end{center}\vspace{1.25cm}
+
+\subsection{Preliminaries}
+
+Introduced by V. Kolmogorov \cite{Kol}, it is an algorithm that minimizes discrete energy on a graph $\mathcal{G} = (\mathcal{V},\mathcal{E})$:
+\begin{equation}
+E(\mathbf{x} |\theta) = \theta_c + \sum_{s\in\mathcal{V}} \theta_s(x_s) + \sum_{(s,t)\in\mathcal{E}} \theta_{st}(x_s,x_t)
+\label{eq:21}
+\end{equation}
+In \cite{Pearl}, an algorithm called \emph{belief propagation} was described. It gives the exact optimum in the case of a tree, but fail to give good result otherwise because the algorithm might get stuck into a loop. It is a slight version of the sum-product algorithm in the sense that it could formally be obtained by switching the sum with $\max$ and the product with $+$ ($(\mathbb{R},\max,+)$ is a semi-ring). In \cite{Wain}, a new algorithm was introduced to deal with this NP-hard problem, called \emph{max-product tree-reweighted message passing} (TRW). \emph{Sequential tree-reweighted message passing} (TRW-S), \cite{Kol} is better in the sense that it always find a 'local' maximum of the bound. 
+
+\subsection{Algorithm}
+
+Given a graph $\mathcal{G}$ we extract a collection of trees $\mathcal{T}$ with a certain distribution $\rho^T, T\in\mathcal{T}$. We define $\theta^T$ as a vector $\theta$ compatible with $T$ - \emph{i.e.} a which is null outside $T$. Set:
+\begin{equation}
+\mathcal{A} = \{\mathbf{\theta}\in\mathbb{R}^{d\times |\mathcal{T}|} | \theta^T \text{ for all } T\in \mathcal{T}\}
+\label{eq:22}
+\end{equation}
+We denote by $\theta' \equiv \theta$ if they give the same energy $E$ for all $\mathbf{x}$. Then the algorithm TRW-S consists in solving:
+\begin{equation}
+\max_{\theta\in\mathcal{A}, \sum_T \rho^T \theta^T \equiv \bar{\theta}} \Phi_{\rho}(\theta) = \max_{\theta\in\mathcal{A}, \sum_T \rho^T \theta^T \equiv \bar{\theta}} \sum_T \min_{x\in\mathcal{X}} \left\langle \theta^T, \phi(x)\right\rangle
+\label{eq:}
+\end{equation}
+
+}
+\vspace*{.9cm}
+
+\pbox{0.9\textwidth}{11cm}{linewidth=2mm,framearc=0.1,linecolor=blue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
+\textbf{Petit encart publicitaire}\\
+
+Pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub pub 
+
+}
+\end{colonne}
+\begin{colonne}{0.3}
+\pbox{0.9\textwidth}{56cm}{linewidth=2mm,framearc=0.1,linecolor=blue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=white,gradmidpoint=1.0,framesep=1em}{
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Partie 3
+\begin{center}\pbox{0.8\textwidth}{}{linewidth=2mm,framearc=0.1,linecolor=lightblue,fillstyle=gradient,gradangle=0,gradbegin=white,gradend=whiteblue,gradmidpoint=1.0,framesep=1em}{
+\begin{center}\blue 
+\section{Partie 3}
+\end{center}}\end{center}\vspace{1.25cm}
+
+Blablabla partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 colonne3 partie3 \\
+
+
+\bibliographystyle{unsrt}
+\bibliography{biblio}
+
+
+}
+\end{colonne}
+\end{center}
+\end{document}

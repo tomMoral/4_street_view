@@ -1,0 +1,2 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Graphical model of language}{3}
