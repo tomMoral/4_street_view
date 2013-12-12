@@ -178,7 +178,23 @@ Introduced by V. Kolmogorov \cite{Kol}, it minimizes a discrete energy on a grap
 E(\mathbf{x} |\theta) = \theta_c + \sum_{s\in\mathcal{V}} \theta_s(x_s) + \sum_{(s,t)\in\mathcal{E}} \theta_{st}(x_s,x_t)
 \label{eq:21}
 \end{equation}
-For a general graph, it is NP-hard. In \cite{Pearl}, \emph{belief propagation} was described - which gives the exact optimum for trees, but might get stuck into a loops otherwise. It is a slightly different version of the sum-product algorithm where, formally, $+$ and $\times$ have been swtiched by $\max$ and $+$. In \cite{Wain} \emph{max-product tree-reweighed message passing} (TRW) is developed. \emph{Sequential tree-reweighted message passing} (TRW-S), \cite{Kol} is better because the bound is tighter.
+For a general graph, it is NP-hard. In \cite{Pearl}, \emph{belief propagation} was described - which gives the exact optimum for trees, but might get stuck into a loops otherwise. In \cite{Wain} \emph{max-product tree-reweighed message passing} (TRW) is developed. \emph{Sequential tree-reweighted message passing} (TRW-S), \cite{Kol} is better because the bound is tighter.
+
+
+\subsection{Belief Propagation, \cite{Pearl}}
+
+It is dynamic programming in linear time that is exact for trees. Denote by $\mathcal{X}_s$ the labels that can take node $s$, and $x_s\in\mathcal{X}_s$. 
+\begin{description}
+\item[Step 1: ]Messages are going from leaves to root:
+\begin{equation}
+M^{s\rightarrow t}(x_t) = \min_{x_s} \left( \theta_s(x_s) + \theta_{s,t}(x_s,x_t) \right), \hspace{0.2cm} x_j\in\mathcal{X}_t
+\label{eq:}
+\end{equation}
+
+\item[Step 2:] p10 ppt.
+\end{description}
+
+
 
 
 \subsection{Algorithm}
