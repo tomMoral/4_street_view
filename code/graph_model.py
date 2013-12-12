@@ -116,7 +116,8 @@ class GraphicalModel(object):
 
     def predict(self):
         import opengm
-        algo = opengm.inference.TrwsExternal(self.gm)
+        parameter = opengm.InfParam(steps=100)
+        algo = opengm.inference.TrwsExternal(self.gm, parameter=parameter)
         algo.infer()
         return algo.arg()
 
