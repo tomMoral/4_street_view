@@ -1,0 +1,8 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Methodology}{3}
+\contentsline {subsection}{\numberline {1.1}Training the classifier}{3}
+\contentsline {subsubsection}{\numberline {1.1.1}Training for character detection}{3}
+\contentsline {subsubsection}{\numberline {1.1.2}Train a prior lexicon for language model}{3}
+\contentsline {subsection}{\numberline {1.2}Sliding window detection}{3}
+\contentsline {subsection}{\numberline {1.3}Graphical model of the language}{3}
+\contentsline {section}{\numberline {2}Results}{3}

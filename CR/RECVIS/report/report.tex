@@ -1,0 +1,93 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\addtolength{\hoffset}{-1.5cm}
+\addtolength{\textwidth}{3.5cm}
+
+\title{Object recognition and computer vision}
+\author{Vincent BODIN \& Thomas MOREAU}
+
+\begin{document}
+\maketitle
+
+\hrulefill
+\vspace{2cm}
+\begin{abstract}
+blabla
+\end{abstract}
+
+
+
+\newpage
+\tableofcontents
+\newpage
+\section*{Introduction}
+
+For 
+
+
+\section{Methodology}
+
+We decided to implement the paper \cite{Mis}. Here is frame of how the text detection is performed through the paper:
+\begin{enumerate}
+\item Step 1: Train classifiers for each possible character $c_k$ in $\mathcal{K}$ set of all possible character. The database used was ICDAR 2003\footnote{ICDAR 2003 database can be downloaded at: }.
+\item Step 2: perform a sliding window detection to detect every possible character. For this we used several scales of windows, computed a feature (HOG) and tested this with our trained classifier. Almost every character should be detected so far - hence we take a very laxist criterion.
+\item Step 3: build a graph with all the windows we had. Attribute a certain energy to each sample of this graph, minimize it via the TRW-S algorithm \cite{Kol}. The word detected is the one with minimum energy.
+\end{enumerate}
+
+\subsection{Training the classifier}
+
+The database used to train the classifier is the database ICDAR 2003. There are two different things to learn: first how characters look like, and second how they connect to one another, \emph{i.e.} the lexicon prior.
+
+\subsubsection{Training for character detection}
+
+We have to learn single characters. They are characterized by their Histogram of Oriented Gradient (HOG) and also by their aspect ratio. The method used in this paper is to train $K$ SVMs with RBF Kernel through a one-versus-all procedure. 
+
+
+\subsubsection{Train a prior lexicon for language model}
+
+Two methods are described in the paper to learn a prior lexicon. 
+
+\begin{itemize}
+	\item Bi-gram: the idea is to count how many times in our dictionary a pair of characters occur. A pairwise energy will then be given according to this prior.
+	\item Node-specific: this method is supposed to perform a bit better than bi-gram since it takes into account the position of occurrence of a pair in a word.
+\end{itemize}
+
+
+
+\subsection{Sliding window detection}
+
+
+
+
+\subsection{Graphical model of the language}
+
+
+
+
+
+\section{Results}
+
+
+
+
+
+
+
+\newpage
+
+\bibliographystyle{unsrt}
+\bibliography{biblio}
+
+
+
+
+
+\end{document}
