@@ -85,4 +85,9 @@ res = slide.detection(im, 0.1, 0.2)
 from utils import display_char
 display_char(res, w, h, im)
 
+from graph_model import GraphicalModel
 
+gm = GraphicalModel(62)
+gm.fit(res)
+
+valu = gm.predict()

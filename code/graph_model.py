@@ -25,18 +25,35 @@ class GraphicalModel(object):
         '''
         create a model for the decision fo the word
         '''
+        import opengm
+        N = len(mapc)
+        numLabel = [self.K+1]*N
+        self.gm = opengm.graphicalModel(numLabel)
+
         i0 = np.argsort(mapc, axis=0)[:,0]
-        v = []
+        v =[]
+        unary = []
         for i in i0:
             p = mapc[i][1]
-            Eu = {}
-            for k in range(len(p)):
-                Eu[enc.inverse_transform(k)] = 1-p[k]
-            Eu['.'] = mapc[i][2]
+            Eu = []
+            for k in range(self.K):
+                Eu.append(1-p[k])
+            Eu.append(mapc[i][2])
             v.append([mapc[i][0], Eu])
+            unary.append(Eu)
         self.vertices = v
 
+        unary = np.array(unary)
+        assert(unary.shape==(N,self.K+1))
+        fid = self.gm.addFunctions(unary)
+        vis = np.arange(0, N, dtype=np.uint64)
+        self.gm.addFactors(fid, vis)
+        
+        f = opengm.PythonFunction(function=self.pairwiseE, shape=[K+1,K+1])
+        fid = gm.addFunction(f)
+
         self.edges = []
+        self.overlap = np.zeros((N,N))
         for i,v1 in enumerate(self.vertices):
             for j, v2 in enumerate(self.vertices[i+1:]):
                 dx = abs(v2[0][0]-v1[0][0])
@@ -44,7 +61,13 @@ class GraphicalModel(object):
                 if dx < th*w and dy < th*h:
                     intersec = (h-min(h,abs(v2[0][0]-v1[0][0])))
                     intersec *= (w-min(w,abs(v2[0][1]-v1[0][1])))
+                    self.overlap[i,j] = intersec
+                    self.overlap[j,i] = intersec
                     self.edges.append((i,j,intersec))
+                    self.gm.addFactor(fid, [i,j])
+                elif dx > th*w:
+                    break
+        
         
 
     def CRF_enregy(self, word):
@@ -52,31 +75,30 @@ class GraphicalModel(object):
         for i, c in enumerate(word):
             CRFE += self.vertice[i][1][c]
         for e in self.edges:
-            CRFE += self.pairwiseE(e[2], w[e[0]], w[e[1]])
+            CRFE += self.pairwiseE(w[e[0]], w[e[1]])
         return CRFE
 
-    def pairwiseE(self, overlap, c1, c2):
-        if c1 == '.' and c2 == '.':
+    def pairwiseE(self, c1, c2):
+        if c1 == self.K and c2 == self.K:
             return 0
-        E = self.lambda0 * np.exp(-(100-overlap)**2)
-        if c1 == '.' or c2 == '.':
+        E = self.lambda0 * np.exp(-(100-self.overlap)**2)
+        if c1 == self.K or c2 == self.K:
             return E
-        return E + self.prior[c1+c2]
+        return E + self.prior[c1*62+c2]
 
 
-    def prior_bg(self, vocabulary, lambda_l=2):
+    def prior_bg(self, vocabulary, enc, lambda_l=2):
         freq = {}
         n = 0.
         for w in vocabulary:
             for i in range(len(w)-1):
-                c = w[i:i+2]
+                c1 = enc.inverse_transform(w[i])
+                c2 = enc.invers_transform(w[i+1])
                 print c
-                freq[c] = freq.get(c,0)+1
+                i0 = c1*(self.K+1)+c2
+                freq[i0] = freq.get(i0,0)+1
                 n += 1.
-        E = {}
-        for k in freq.keys():
-            freq[k] /= n
-            E[k] = lambda_l*(1-freq[k])
+        E = [lambda_l*(1-freq.get(i,0)/n) for i in range(62*62)]
         self.prior = E
         return E 
 
@@ -85,7 +107,11 @@ class GraphicalModel(object):
         print 'TODO: Node specific prior' 
 
 
-
+    def predict(self):
+        import opengm
+        algo = opengm.inference.TrwsExternal(self.gm)
+        algo.infer()
+        return algo.arg()
 
 
 if __name__=='__main__':
