@@ -51,7 +51,8 @@ cpdef hog(im, int sbin = 8):
 
     out0 = blocks0 - 2
     out1 = blocks1 - 2
-    out2 = 9 + 4
+    #out2 = 9 + 4 #decoment if you want to get the 4 last features.
+    out2 = 9 # comment if you want the original code.
 
     visible0 = blocks0 * sbin
     visible1 = blocks1 * sbin
@@ -125,6 +126,8 @@ cpdef hog(im, int sbin = 8):
         for q from 0 <= q < blocks0 * blocks1:
             norm[q] += hist[o * blocks0 * blocks1 + q] * hist[o * blocks0 * blocks1 + q] 
 
+
+
     # compute normalized values 
     for x from 0 <= x < out1:
         for y from 0 <= y < out0:
@@ -165,6 +168,9 @@ cpdef hog(im, int sbin = 8):
                 t3 += h3
                 t4 += h4
                 srcptr += blocks0 * blocks1
+                    
+            """
+            # decoment if you want the original code with the 4 last features. 
 
             feat[y, x, 9] = 0.2357 * t1
             dstptr += out0 * out1
@@ -174,6 +180,7 @@ cpdef hog(im, int sbin = 8):
             dstptr += out0 * out1
             feat[y, x, 12] = 0.2357 * t4
     
+            """
     return feat
 
 cpdef hogpad(np.ndarray[np.double_t, ndim=3] hog):
