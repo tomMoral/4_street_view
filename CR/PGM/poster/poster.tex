@@ -147,6 +147,8 @@ This first part of the project has been done as a project for the course \emph{O
 \end{enumerate}
 \vspace{0.3cm}
 
+The main apsect of this project is how to build the graph and minimize its discrete energy. \\
+
 \red PICTURES \black
 %\textbf{Exemple: petit graphique avec pleins de couleurs}\\
 
@@ -171,12 +173,13 @@ This first part of the project has been done as a project for the course \emph{O
 
 \subsection{Preliminaries}
 
-Introduced by V. Kolmogorov \cite{Kol}, it is an algorithm that minimizes discrete energy on a graph $\mathcal{G} = (\mathcal{V},\mathcal{E})$:
+Introduced by V. Kolmogorov \cite{Kol}, it minimizes a discrete energy on a graph $\mathcal{G} = (\mathcal{V},\mathcal{E})$:
 \begin{equation}
 E(\mathbf{x} |\theta) = \theta_c + \sum_{s\in\mathcal{V}} \theta_s(x_s) + \sum_{(s,t)\in\mathcal{E}} \theta_{st}(x_s,x_t)
 \label{eq:21}
 \end{equation}
-In \cite{Pearl}, an algorithm called \emph{belief propagation} was described. It gives the exact optimum in the case of a tree, but fail to give good result otherwise because the algorithm might get stuck into a loop. It is a slight version of the sum-product algorithm in the sense that it could formally be obtained by switching the sum with $\max$ and the product with $+$ ($(\mathbb{R},\max,+)$ is a semi-ring). In \cite{Wain}, a new algorithm was introduced to deal with this NP-hard problem, called \emph{max-product tree-reweighted message passing} (TRW). \emph{Sequential tree-reweighted message passing} (TRW-S), \cite{Kol} is better in the sense that it always find a 'local' maximum of the bound. 
+For a general graph, it is NP-hard. In \cite{Pearl}, \emph{belief propagation} was described - which gives the exact optimum for trees, but might get stuck into a loops otherwise. It is a slightly different version of the sum-product algorithm where, formally, $+$ and $\times$ have been swtiched by $\max$ and $+$. In \cite{Wain} \emph{max-product tree-reweighed message passing} (TRW) is developed. \emph{Sequential tree-reweighted message passing} (TRW-S), \cite{Kol} is better because the bound is tighter.
+
 
 \subsection{Algorithm}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=latex 2013.12.11)  11 DEC 2013 22:02
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=latex 2013.12.11)  12 DEC 2013 08:55
 entering extended mode
 **poster.tex
 (C:\Users\Vincent\Documents\GitHub\4_street_view\CR\PGM\poster\poster.tex
@@ -437,12 +437,17 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 96.
  ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 202--202
+Underfull \hbox (badness 10000) in paragraph at lines 159--159
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 221--221
+Underfull \hbox (badness 10000) in paragraph at lines 205--205
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--224
 
  []
 
@@ -453,10 +458,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 221--221
 Here is how much of TeX's memory you used:
  6695 strings out of 493922
  93923 string characters out of 3147298
- 222524 words of memory out of 3000000
+ 222430 words of memory out of 3000000
  9871 multiletter control sequences out of 15000+200000
  12951 words of font info for 52 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  37i,7n,52p,3077b,462s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on poster.dvi (1 page, 16644 bytes).
+Output written on poster.dvi (1 page, 16492 bytes).
