@@ -20,6 +20,7 @@ class GraphicalModel(object):
             -overlap -> overlap des vertices
         '''
         self.K = K
+        self.prior = np.zeros((K+1,K+1))
 
     def fit(self, mapc, w,h, th, enc):
         '''
@@ -59,12 +60,18 @@ class GraphicalModel(object):
                 dx = abs(v2[0][0]-v1[0][0])
                 dy = abs(v2[0][1]-v1[0][1])
                 if dx < th*w and dy < th*h:
+                    
                     intersec = (h-min(h,abs(v2[0][0]-v1[0][0])))
                     intersec *= (w-min(w,abs(v2[0][1]-v1[0][1])))
-                    self.overlap[i,j] = intersec
-                    self.overlap[j,i] = intersec
+                    v0 = self.lambda0*np.exp(-(100-intersec)**2)
+                    BinaryE = np.ones((self.K+1,self.K+1))*v0
+                    BinaryE += self.prior
+                    BinaryE[self.K,self.K] = 0
+                    
+                    fid = self.gm.addFunction(BinaryE)
                     self.edges.append((i,j,intersec))
                     self.gm.addFactor(fid, [i,j])
+
                 elif dx > th*w:
                     break
         
@@ -88,19 +95,18 @@ class GraphicalModel(object):
 
 
     def prior_bg(self, vocabulary, enc, lambda_l=2):
-        freq = {}
+        freq = np.zeros((self.K+1,self.K+1)
         n = 0.
         for w in vocabulary:
             for i in range(len(w)-1):
                 c1 = enc.inverse_transform(w[i])
                 c2 = enc.invers_transform(w[i+1])
-                print c
-                i0 = c1*(self.K+1)+c2
-                freq[i0] = freq.get(i0,0)+1
+                freq[c1][c2] += 1
                 n += 1.
-        E = [lambda_l*(1-freq.get(i,0)/n) for i in range(62*62)]
-        self.prior = E
-        return E 
+        for i in range(self.K):
+            for j in range(self.K):
+                self.prior[i][j] = lambda_l*(1-freq[i][j]/n)
+        return self.prior
 
 
     def prior_ns(self, vocabulary, lambda_l=2):

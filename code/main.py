@@ -87,7 +87,7 @@ display_char(res, w, h, im)
 
 from graph_model import GraphicalModel
 
-gm = GraphicalModel(62)
-gm.fit(res)
+gm = GraphicalModel(61)
+gm.fit(res, w, h, 1.15, enc)
 
 valu = gm.predict()
