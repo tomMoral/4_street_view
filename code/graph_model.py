@@ -22,13 +22,14 @@ class GraphicalModel(object):
         self.K = K
         self.prior = np.zeros((K+1,K+1))
 
-    def fit(self, mapc, w,h, th, enc):
+    def fit(self, mapc, w,h, th, enc, lambda0):
         '''
         create a model for the decision fo the word
         '''
         import opengm
         N = len(mapc)
-        numLabel = [self.K+1]*N
+        K = self.K
+        numLabel = [K+1]*N
         self.gm = opengm.graphicalModel(numLabel)
 
         i0 = np.argsort(mapc, axis=0)[:,0]
@@ -45,13 +46,13 @@ class GraphicalModel(object):
         self.vertices = v
 
         unary = np.array(unary)
-        assert(unary.shape==(N,self.K+1))
+        assert(unary.shape==(N,K+1))
         fid = self.gm.addFunctions(unary)
         vis = np.arange(0, N, dtype=np.uint64)
         self.gm.addFactors(fid, vis)
         
         f = opengm.PythonFunction(function=self.pairwiseE, shape=[K+1,K+1])
-        fid = gm.addFunction(f)
+        fid = self.gm.addFunction(f)
 
         self.edges = []
         self.overlap = np.zeros((N,N))
@@ -63,14 +64,14 @@ class GraphicalModel(object):
                     
                     intersec = (h-min(h,abs(v2[0][0]-v1[0][0])))
                     intersec *= (w-min(w,abs(v2[0][1]-v1[0][1])))
-                    v0 = self.lambda0*np.exp(-(100-intersec)**2)
-                    BinaryE = np.ones((self.K+1,self.K+1))*v0
+                    v0 = lambda0*np.exp(-(100-intersec)**2)
+                    BinaryE = np.ones((K+1, K+1))*v0
                     BinaryE += self.prior
-                    BinaryE[self.K,self.K] = 0
+                    BinaryE[K, K] = 0
                     
                     fid = self.gm.addFunction(BinaryE)
-                    self.edges.append((i,j,intersec))
-                    self.gm.addFactor(fid, [i,j])
+                    self.edges.append((i, j+1, intersec))
+                    self.gm.addFactor(fid, [i, j+i+1])
 
                 elif dx > th*w:
                     break
@@ -95,7 +96,7 @@ class GraphicalModel(object):
 
 
     def prior_bg(self, vocabulary, enc, lambda_l=2):
-        freq = np.zeros((self.K+1,self.K+1)
+        freq = np.zeros((self.K+1,self.K+1))
         n = 0.
         for w in vocabulary:
             for i in range(len(w)-1):

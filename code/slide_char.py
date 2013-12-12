@@ -68,7 +68,7 @@ class SlidingWindow(object):
         detect = np.exp(-(self.AR[i0,0]-AR[i0])**2/(2*self.AR[i0,1]))
         GS = np.multiply(p[i0, range(y.shape[0])], detect)
         
-        err = 1- (GS>0.1).sum()*1./y.shape[0]
+        err = 1- (GS>0.1).mean()
         print ('\nThis model miss {:6.2%} of the'
                ' character in the test db').format(err)
 

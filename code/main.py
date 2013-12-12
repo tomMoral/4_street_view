@@ -91,3 +91,10 @@ gm = GraphicalModel(61)
 gm.fit(res, w, h, 1.15, enc)
 
 valu = gm.predict()
+
+word = []
+for v in valu:
+    if v != 62:
+        word.append(enc.inverse_transform(v))
+
+print word
