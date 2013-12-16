@@ -7,8 +7,10 @@ cdef extern from "math.h":
     double sqrt(double i)
     double fabs(double i)
     double floor(double i)
+    double cos(double i)
+    double sin(double i)
 
-cpdef hog(im, int sbin = 8): 
+cpdef hog(im, int sbin = 8, int n_bin=10): 
     """
     Computes a histogram of oriented gradient features.
 
@@ -32,18 +34,28 @@ cpdef hog(im, int sbin = 8):
     cdef double n1, n2, n3, n4, t1, t2, t3, t4, h1, h2, h3, h4
     cdef int p
 
-    cdef np.ndarray[np.double_t, ndim=1] uu
+    cdef np.ndarray[np.double_t, ndim=1] uu    
+    cdef np.ndarray[np.double_t, ndim=1] vv
+    
+    '''
     uu = np.array([ 1.0000,  0.9397,  0.7660,  0.500,  0.1736, 
                    -0.1736, -0.5000, -0.7660, -0.9397])
-    cdef np.ndarray[np.double_t, ndim=1] vv
     vv = np.array([0.0000, 0.3420, 0.6428, 0.8660, 0.9848, 
                    0.9848, 0.8660, 0.6428, 0.3420])
-
+    '''
+    cdef int o2
     cdef double eps = 0.0001 # to avoid division by 0
     cdef unsigned int cc0, cc1, cc2
 
     cdef int x, y, o, q
     cdef int dstptr, srcptr
+
+    uu = np.zeros((n_bin,))
+    vv = np.zeros((n_bin,))
+
+    for o2 from 0 <= o2 < n_bin:
+        uu[o2] = cos(np.pi/n_bin*o2)
+        vv[o2] = sin(np.pi/n_bin*o2)
 
     width, height = im.size
     blocks0 = height / sbin 
@@ -51,7 +63,7 @@ cpdef hog(im, int sbin = 8):
 
     out0 = blocks0 - 2
     out1 = blocks1 - 2
-    out2 = 9 + 4 #decoment if you want to get the 4 last features.
+    out2 = n_bin + 4 #decoment if you want to get the 4 last features.
     #out2 = 9 # comment if you want the original code.
 
     visible0 = blocks0 * sbin
@@ -63,7 +75,7 @@ cpdef hog(im, int sbin = 8):
     cc1 = <unsigned int>(1)
     cc2 = <unsigned int>(2)
 
-    hist = np.zeros(shape=(blocks0 * blocks1 * 9), dtype=np.double)
+    hist = np.zeros(shape=(blocks0 * blocks1 * n_bin), dtype=np.double)
     norm = np.zeros(shape=(blocks0 * blocks1), dtype=np.double)
     feat = np.zeros(shape=(out0, out1, out2), dtype=np.double)
 
@@ -93,7 +105,7 @@ cpdef hog(im, int sbin = 8):
             # snap to one of 9 orientations
             best_dot = 0.
             best_o = 0
-            for o from 0 <= o < 9:
+            for o from 0 <= o < n_bin:
                 dot = fabs(uu[o] * dx + vv[o] * dy)
                 if dot > best_dot:
                     best_dot = dot
@@ -122,7 +134,7 @@ cpdef hog(im, int sbin = 8):
                 hist[(ixp + 1) * blocks0 + (iyp + 1) + best_o * blocks0 * blocks1] += vx0 * vy0 * v
     
     # compute energy in each block by summing over orientations
-    for o from 0 <= o < 9:
+    for o from 0 <= o < n_bin:
         for q from 0 <= q < blocks0 * blocks1:
             norm[q] += hist[o * blocks0 * blocks1 + q] * hist[o * blocks0 * blocks1 + q] 
 
@@ -146,7 +158,7 @@ cpdef hog(im, int sbin = 8):
             t4 = 0
 
             srcptr = (x+1) * blocks0 + y + 1
-            for o from 0 <= o < 9:
+            for o from 0 <= o < n_bin:
                 h1 = hist[srcptr] * n1
                 h2 = hist[srcptr] * n2
                 h3 = hist[srcptr] * n3
@@ -172,13 +184,13 @@ cpdef hog(im, int sbin = 8):
             
             # decoment if you want the original code with the 4 last features. 
 
-            feat[y, x, 9] = 0.2357 * t1
+            feat[y, x, n_bin] = 0.2357 * t1
             dstptr += out0 * out1
-            feat[y, x, 10] = 0.2357 * t2
+            feat[y, x, n_bin+1] = 0.2357 * t2
             dstptr += out0 * out1
-            feat[y, x, 11] = 0.2357 * t3
+            feat[y, x, n_bin+2] = 0.2357 * t3
             dstptr += out0 * out1
-            feat[y, x, 12] = 0.2357 * t4
+            feat[y, x, n_bin+3] = 0.2357 * t4
     
             
     return feat
