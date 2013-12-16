@@ -13,7 +13,7 @@ class SlidingWindow(object):
 
     return a card of detection X
     '''
-    def __init__(self, w, h):
+    def __init__(self, w, h, K):
         '''
         Parameters
         ----------
@@ -21,13 +21,13 @@ class SlidingWindow(object):
         '''
         self.width = w
         self.height = h
-        self.K = 61
+        self.K = K
         self.model = []
         from sklearn import svm
         for i in range(self.K):
             self.model.append(svm.SVC(probability=True))
 
-    def fit(self, X, y):
+    def fit(self, X, y, pix=False):
         '''
         Fit model to the observation (X,y) of detection
         '''
@@ -38,7 +38,12 @@ class SlidingWindow(object):
             ai = im.size[0]*1./im.size[1]
             AR[y[i]].append(ai)
             im_r = im.resize((22,20))
-            X_feat.append(hog(im_r,4).reshape((-1,)))
+            if  not pix:
+                X_feat.append(hog(im_r,4).reshape((-1,)))
+            else:
+                im_r = im_r.convert('L')
+                im_a = np.array(im_r.getdata()).reshape((-1,))
+                X_feat.append(im_a)
         
         for i in range(self.K):
             y_feat = (y==i)
@@ -46,7 +51,7 @@ class SlidingWindow(object):
         self.AR = np.array([[np.mean(AR[i]),np.var(AR[i])] 
                              for i in range(self.K)])
 
-    def test(self, X, y):
+    def test(self, X, y, pix=False):
         '''
         Test model on the observation (X,y)
         '''
@@ -57,7 +62,13 @@ class SlidingWindow(object):
             ai = im.size[0]*1./im.size[1]
             AR.append(ai)
             im_r = im.resize((22,20))
-            X_feat.append(hog(im_r,4).reshape((-1,)))
+            if not pix:
+                X_feat.append(hog(im_r,4).reshape((-1,)))
+            else:
+                im_r = im_r.convert('L')
+                im_a = np.array(im_r.getdata()).reshape((-1,))
+                X_feat.append(im_a)
+
         p = []
         for k in range(self.K):
             p.append(self.model[k].predict_proba(X_feat)[:,1])
@@ -68,12 +79,12 @@ class SlidingWindow(object):
         detect = np.exp(-(self.AR[i0,0]-AR[i0])**2/(2*self.AR[i0,1]))
         GS = np.multiply(p[i0, range(y.shape[0])], detect)
         
-        err = 1- (GS>0.1).sum()*1./y.shape[0]
+        err = 1- (GS>0.1).mean()
         print ('\nThis model miss {:6.2%} of the'
                ' character in the test db').format(err)
 
 
-    def detection(self, im, th, th1=0.1):
+    def detection(self, im, th, th1=0.1, pix=False):
         '''
         Perform the sliding window detection on im
         return a list with (x, y, class, proba)
@@ -94,7 +105,14 @@ class SlidingWindow(object):
                 sys.stdout.flush()
                 X = im.crop((i,j,i+w,j+h))
                 X_r = X.resize((22,20))
-                X_feat = hog(X_r,4).reshape((1,-1))
+                X_feat = []
+                if not pix:
+                    X_feat.append(hog(X_r,4).reshape((-1,)))
+                else:
+                    im_r = im_r.convert('L')
+                    im_a = np.array(X_r.getdata()).reshape((-1,))
+                    X_feat.append(im_a)
+                
                 p = []
                 for k in range(self.K):
                     p.append(self.model[k].predict_proba(X_feat)[0,1])
@@ -123,8 +141,8 @@ class SlidingWindow(object):
             i = 0
             while i < len(res):
                 c2 = res[i]
-                intersec = (h-min(h,abs(c2[0]-c[0])))
-                intersec *= (w-min(w,abs(c2[1]-c[1])))
+                intersec = (w-min(w,abs(c2[0]-c[0])))
+                intersec *= (h-min(h,abs(c2[1]-c[1])))
                 criterion = intersec / (2.*h*w - intersec)
                 if criterion > th and c[3] == c2[3]:
                     l.append(c2[:2])
@@ -133,7 +151,7 @@ class SlidingWindow(object):
                 else:
                     i+=1
             xy = np.mean(l, axis=0)
-            res2.append(((xy[0], xy[1]), c[2], c[5]))
+            res2.append(((xy[0], xy[1]), c[2], c[5], (w,h) ))
             
         return res2 
         

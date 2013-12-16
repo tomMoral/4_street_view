@@ -1,12 +1,13 @@
 
-def display_char(L, w, h, im, col='blue'):
+def display_char(L, im, col='blue'):
     from matplotlib.patches import Rectangle
     import matplotlib.pyplot as plt
 
     plt.clf()
     ax = plt.gca()
     for rect in L:
-        ax.add_patch(Rectangle(rect[0], w, h, fc='none', ec=col))
+        ax.add_patch(Rectangle(rect[0], rect[3][0], rect[3][1], 
+                    fc='none', ec=col))
     ax.autoscale_view()
     plt.imshow(im)
     plt.show()
