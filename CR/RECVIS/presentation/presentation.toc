@@ -1,0 +1,7 @@
+\beamer@endinputifotherversion {3.31pt}
+\select@language {english}
+\beamer@sectionintoc {2}{Learning preliminaries}{3}{0}{1}
+\beamer@subsectionintoc {2}{1}{Learning characters}{4}{0}{1}
+\beamer@subsectionintoc {2}{2}{Learning words}{5}{0}{1}
+\beamer@sectionintoc {3}{Character detection}{6}{0}{2}
+\beamer@sectionintoc {4}{Recognizing words}{9}{0}{3}
