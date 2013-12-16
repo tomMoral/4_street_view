@@ -10,7 +10,7 @@ cdef extern from "math.h":
     double cos(double i)
     double sin(double i)
 
-cpdef hog(im, int sbin = 8, int n_bin=10): 
+cpdef hog(im, int sbin = 8, int n_bin=12): 
     """
     Computes a histogram of oriented gradient features.
 
@@ -56,7 +56,6 @@ cpdef hog(im, int sbin = 8, int n_bin=10):
     for o2 from 0 <= o2 < n_bin:
         uu[o2] = cos(np.pi/n_bin*o2)
         vv[o2] = sin(np.pi/n_bin*o2)
-
     width, height = im.size
     blocks0 = height / sbin 
     blocks1 = width / sbin

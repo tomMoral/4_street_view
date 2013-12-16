@@ -33,6 +33,7 @@ class GraphicalModel(object):
         self.gm = opengm.graphicalModel(numLabel)
 
         i0 = np.argsort(mapc, axis=0)[:,0]
+        self.indice = i0
         v =[]
         unary = []
         for i in i0:
@@ -70,7 +71,7 @@ class GraphicalModel(object):
                     BinaryE[K, K] = 0
                     
                     fid = self.gm.addFunction(BinaryE)
-                    self.edges.append((i, j+1, intersec))
+                    self.edges.append((i, j+i+1, intersec))
                     self.gm.addFactor(fid, [i, j+i+1])
 
                 #elif dx > th*w:
@@ -110,7 +111,9 @@ class GraphicalModel(object):
         parameter = opengm.InfParam(steps=step)
         algo = opengm.inference.TrwsExternal(self.gm, parameter=parameter)
         algo.infer()
-        return algo.arg()
+        i0 = self.indice.argsort()
+        val = np.array(algo.arg())
+        return val[i0]
 
 
 if __name__=='__main__':
