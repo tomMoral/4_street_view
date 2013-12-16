@@ -25,7 +25,7 @@ class SlidingWindow(object):
         self.model = []
         from sklearn import svm
         for i in range(self.K):
-            self.model.append(svm.SVC(probability=True))
+            self.model.append(svm.SVC(C=10.0, gamma=0.10,probability=True))
 
     def fit(self, X, y, pix=False):
         '''
@@ -35,8 +35,10 @@ class SlidingWindow(object):
         X_feat = []
         AR = [[] for i in range(self.K)]
         for i, im in enumerate(X):
+
             ai = im.size[0]*1./im.size[1]
-            AR[y[i]].append(ai)
+            if y[i] < self.K:
+                AR[y[i]].append(ai)
             im_r = im.resize((22,20))
             if  not pix:
                 X_feat.append(hog(im_r,4).reshape((-1,)))

@@ -33,8 +33,8 @@ lab = np.load(jp(base_dir, '{}_lab_char.npy'.format(args.dbchar)))
 enc = LabelEncoder()
 enc.fit(lab)
 
-w = 15
-h = 20
+w = 7
+h = 15
 
 from slide_char import SlidingWindow
 slide = SlidingWindow(w, h, 62)
@@ -59,6 +59,10 @@ if args.r or not os.path.exists(jp(base_dir,'model/model_{}_{}.pickle'.format(
         s2 = 40./im.size[0]
         X.append(im.resize([int(s2*s) for s in im.size]))
         del im
+    '''X_a_neg = np.load(jp(base_dir,'neg/neg.npy'))
+    X_neg = [Image.fromarray(im, 'RGB') for im in X_a_neg]
+    X.extend(X_neg)
+    y = np.concatenate((y, [62]*len(X_neg)))'''
     slide.fit(X,y, pix=args.pix)
     print '\rCompute char model... done'
     joblib.dump(slide.model, jp(base_dir, 'model/model_{}_{}.pickle'.format(args.dbchar, feat)))
@@ -83,7 +87,7 @@ if args.t:
         s2 = 40./im.size[0]
         X_tst.append(im.resize([int(s2*s) for s in im.size]))
         del im
-    print 'Load char...  done'
+    print '\rLoad char...  done'
     slide.test(X_tst,y_tst, pix=args.pix)
     sys.exit()
 
@@ -110,8 +114,8 @@ for w in range(10,30,4):
         window.extend(res2)
 '''
 
-w = 14
-h = 16
+w = 9
+h = 18
 slide.width = w
 slide.height = h
 res = slide.detection(im, 0.1, 0.2, pix=args.pix)
@@ -133,7 +137,7 @@ for child in root:
 
 gm = GraphicalModel(62)
 gm.prior_bg(words, enc)
-gm.fit(window, 1.15, enc, 1)
+gm.fit(window, 1.25, enc, 1)
 
 valu = gm.predict()
 
