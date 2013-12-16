@@ -78,10 +78,15 @@ class SlidingWindow(object):
 
         detect = np.exp(-(self.AR[i0,0]-AR[i0])**2/(2*self.AR[i0,1]))
         GS = np.multiply(p[i0, range(y.shape[0])], detect)
+
+        err2 = ((y-i0).nonzero()[0].shape[0])*1./y.shape[0]
         
         err = 1- (GS>0.1).mean()
         print ('\nThis model miss {:6.2%} of the'
                ' character in the test db').format(err)
+
+        print ('This model failed to recognize {:6.2%} character '
+               'of the test db').format(err2)
 
 
     def detection(self, im, th, th1=0.1, pix=False):
