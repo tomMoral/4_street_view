@@ -60,7 +60,7 @@ if args.r or not os.path.exists(jp(base_dir,'model/model_{}_{}.pickle'.format(
         X.append(im.resize([int(s2*s) for s in im.size]))
         del im
     slide.fit(X,y, pix=args.pix)
-    print 'Compute char model... done'
+    print '\rCompute char model... done'
     joblib.dump(slide.model, jp(base_dir, 'model/model_{}_{}.pickle'.format(args.dbchar, feat)))
     joblib.dump(slide.AR, jp(base_dir, 'model/AR_{}_{}.pickle'.format(args.dbchar, feat)))
 
@@ -83,6 +83,7 @@ if args.t:
         s2 = 40./im.size[0]
         X_tst.append(im.resize([int(s2*s) for s in im.size]))
         del im
+    print 'Load char...  done'
     slide.test(X_tst,y_tst, pix=args.pix)
     sys.exit()
 
@@ -130,7 +131,7 @@ words = []
 for child in root:
     words.append(child.get('tag'))
 
-gm = GraphicalModel(61)
+gm = GraphicalModel(62)
 gm.prior_bg(words, enc)
 gm.fit(window, 1.15, enc, 1)
 
@@ -138,7 +139,7 @@ valu = gm.predict()
 
 word = ''
 for v in valu:
-    if v != 61:
+    if v != 62:
         word += enc.inverse_transform(v)
 
 print word

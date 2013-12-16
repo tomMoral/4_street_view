@@ -51,9 +51,6 @@ class GraphicalModel(object):
         vis = np.arange(0, N, dtype=np.uint64)
         self.gm.addFactors(fid, vis)
         
-        f = opengm.PythonFunction(function=self.pairwiseE, shape=[K+1,K+1])
-        fid = self.gm.addFunction(f)
-
         self.edges = []
         self.overlap = np.zeros((N,N))
         for i,v1 in enumerate(self.vertices):
@@ -79,24 +76,6 @@ class GraphicalModel(object):
                 #elif dx > th*w:
                 #    break
         
-        
-
-    def CRF_enregy(self, word):
-        CRFE = 0
-        for i, c in enumerate(word):
-            CRFE += self.vertice[i][1][c]
-        for e in self.edges:
-            CRFE += self.pairwiseE(w[e[0]], w[e[1]])
-        return CRFE
-
-    def pairwiseE(self, c1, c2):
-        if c1 == self.K and c2 == self.K:
-            return 0
-        E = self.lambda0 * np.exp(-(100-self.overlap)**2)
-        if c1 == self.K or c2 == self.K:
-            return E
-        return E + self.prior[c1*62+c2]
-
 
     def prior_bg(self, vocabulary, enc, lambda_l=2):
         freq = np.zeros((self.K+1,self.K+1))
@@ -107,11 +86,11 @@ class GraphicalModel(object):
                     if w[i] not in ['(',')','!','&','?',
                                     '.','"',"'",'-',':',
                                     u'\xa3', u'\xc9',',',
-                                    u'\xd1', u'\xe9','z']:
+                                    u'\xd1', u'\xe9']:
                         if w[i+1] not in ['(',')','!','&','?',
                                     '.','"',"'",'-',':',
                                     u'\xa3', u'\xc9',',',
-                                    u'\xd1', u'\xe9','z']:
+                                    u'\xd1', u'\xe9']:
                             c1 = enc.transform(w[i])
                             c2 = enc.transform(w[i+1])
                             freq[c1][c2] += 1
