@@ -42,6 +42,7 @@ class GraphicalModel(object):
             for k in range(self.K):
                 Eu.append(1-p[k])
             Eu.append(mapc[i][2])
+            #Eu.append(max(p))
             v.append([mapc[i][0], Eu, mapc[i][3]])
             unary.append(Eu)
         self.vertices = v
@@ -78,7 +79,7 @@ class GraphicalModel(object):
                 #    break
         
 
-    def prior_bg(self, vocabulary, enc, lambda_l=2):
+    def prior_bg(self, vocabulary, enc, lambda_l=2, c=1):
         freq = np.zeros((self.K+1,self.K+1))
         n = 0.
         for w in vocabulary:
@@ -96,9 +97,10 @@ class GraphicalModel(object):
                             c2 = enc.transform(w[i+1])
                             freq[c1][c2] += 1
                             n += 1.
+        n = 1. if n ==0 else n
         for i in range(self.K):
             for j in range(self.K):
-                self.prior[i][j] = lambda_l*(1-freq[i][j]/n)
+                self.prior[i][j] = lambda_l*(1-freq[i][j]/n)**c
         return self.prior
 
 
