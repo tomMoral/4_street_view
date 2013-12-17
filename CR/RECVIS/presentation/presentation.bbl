@@ -1,0 +1,41 @@
+\begin{thebibliography}{1}
+
+\bibitem{Mis}
+C.~V.~Jawahar A.~Mishra, K.~Alahari.
+\newblock Top-down and bottom-up cues for scene text recognition.
+\newblock {\em IEEE Conference on Computer Vision and Pattern Recognition
+  (CVPR)}, 2012.
+
+\bibitem{ICDARchar}
+Robust ocr.
+\newblock \url{http://algoval.essex.ac.uk/icdar/Datasets.html}.
+\newblock Accessed: 2013-12-16.
+
+\bibitem{Char74K}
+The chars74k dataset: Character recognition in natural images.
+\newblock \url{http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/}.
+\newblock Accessed: 2013-12-16.
+
+\bibitem{Dal2005}
+B.~Triggs N.~Dalal.
+\newblock Histogram of oriented gradients for human detectection.
+\newblock {\em CVPR}, 2005.
+
+\bibitem{scikit}
+Scikit-learn.
+\newblock
+  \url{http://scikit-learn.org/stable/modules/svm.html#parameters-of-the-rbf-kernel}.
+\newblock Accessed: 2013-12-16.
+
+\bibitem{ICDARword}
+Robust word recognition.
+\newblock \url{http://algoval.essex.ac.uk/icdar/Datasets.html}.
+\newblock Accessed: 2013-12-16.
+
+\bibitem{Kol}
+V.~Kolmogorov.
+\newblock Convergent tree-reweighted message passing for energy minimization.
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine Learning
+  (PAMI)}, 2006.
+
+\end{thebibliography}
