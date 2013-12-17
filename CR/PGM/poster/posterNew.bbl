@@ -38,4 +38,17 @@ Robust word recognition.
 \newblock \url{http://algoval.essex.ac.uk/icdar/Datasets.html}.
 \newblock Accessed: 2013-12-16.
 
+\bibitem{Pearl}
+J.~Pearl.
+\newblock {\em Probabilistic Reasoning in Intelligent Systems: Networks of
+  Plausible Inference}.
+\newblock Morgan Kaufmann Publishers, 1988.
+
+\bibitem{Wain}
+A.~S.~Willsky M.~J.~Wainwright, T. S.~Jaakkola.
+\newblock Map estimation via agreement on trees: Message-passing and
+  linear-programming approaches.
+\newblock {\em IEEE Transactions on Information Theory}, 51:3697 -- 3717,
+  November 2005.
+
 \end{thebibliography}

@@ -1,11 +1,5 @@
 \begin{thebibliography}{1}
 
-\bibitem{Mis}
-C.~V.~Jawahar A.~Mishra, K.~Alahari.
-\newblock Top-down and bottom-up cues for scene text recognition.
-\newblock {\em IEEE Conference on Computer Vision and Pattern Recognition
-  (CVPR)}, 2012.
-
 \bibitem{ICDARchar}
 Robust ocr.
 \newblock \url{http://algoval.essex.ac.uk/icdar/Datasets.html}.
