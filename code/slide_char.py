@@ -24,8 +24,9 @@ class SlidingWindow(object):
         self.K = K
         self.model = []
         from sklearn import svm
+        param = np.load('../data/param_svm.npy')
         for i in range(self.K):
-            self.model.append(svm.SVC(C=10.0, gamma=0.10,probability=True))
+            self.model.append(svm.SVC(probability=True, **param[i]))
 
     def fit(self, X, y, pix=False):
         '''

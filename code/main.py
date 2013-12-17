@@ -15,7 +15,7 @@ parser.add_argument('--dir', type=str, help='Image base folder',
                     default='../data/svt1/img')
 parser.add_argument('-c', type=int, default=10,
                     help='character display')
-parser.add_argument('-s', type=int, default=0.3,
+parser.add_argument('-s', type=float, default=0.3,
                     help='image scale')
 parser.add_argument('-t', action='store_true',
                     help='Compute the test error of the SVM')
@@ -61,7 +61,7 @@ if args.r or not os.path.exists(jp(base_dir,'model/model_{}_{}.pickle'.format(
     X.extend(X_neg)
     y = np.concatenate((y, [62]*len(X_neg)))'''
     slide.fit(X,y, pix=args.pix)
-    print '\rCompute char model... done'
+    print '\r\aCompute char model... done'
     joblib.dump(slide.model, jp(base_dir, 'model/model_{}_{}.pickle'.format(args.dbchar, feat)))
     joblib.dump(slide.AR, jp(base_dir, 'model/AR_{}_{}.pickle'.format(args.dbchar, feat)))
 
@@ -86,6 +86,8 @@ if args.t:
         del im
     print '\rLoad char...  done'
     slide.test(X_tst,y_tst, pix=args.pix)
+    sys.stdout.write('\a')
+    sys.stdout.flush()
     sys.exit()
 
 window = []
@@ -100,7 +102,7 @@ def res_th(res,th):
             X.append(r)
     return X
 
-
+'''
 for w in range(10,20,2):
     for h in range(25,30,1):
         print 'window size : (', w, ',', h , ')'
@@ -111,13 +113,13 @@ for w in range(10,20,2):
         window.extend(res2)
 '''
 
-w = 15
-h = 27
+w = 16
+h = 25
 slide.width = w
 slide.height = h
 res = slide.detection(im, 0.1, 0.2, pix=args.pix)
-window = res_th(res, 0.1)
-'''
+window = res_th(res, 0.6)
+
 np.save(args.im, window)
 
 from utils import display_char
@@ -129,12 +131,15 @@ import xml.etree.ElementTree as ET
 doc = ET.parse('../data/word.xml')
 root = doc.getroot()
 words = []
+
+'''
 for child in root:
     words.append(child.get('tag'))
-
+'''
+words.extend(['PUFF']*2000)
 gm = GraphicalModel(62)
-gm.prior_bg(words, enc)
-gm.fit(window, 1.25, enc, 1)
+gm.prior_bg(words, enc, 1)
+gm.fit(window, 1.4, enc, 0.1)
 
 valu, val = gm.predict()
 
@@ -143,7 +148,7 @@ for v in val:
     if v != 62:
         word += enc.inverse_transform(v)
 
-print word
+print '\a', word
 
 
 
