@@ -58,8 +58,8 @@ class GraphicalModel(object):
             for j, v2 in enumerate(self.vertices[i+1:]):
                 dx = abs(v2[0][0]-v1[0][0])
                 dy = abs(v2[0][1]-v1[0][1])
-                w = v1[2][0]
-                h = v1[2][1]
+                w = min(v1[2][0], v2[2][0])
+                h = min(v1[2][1], v2[2][0])
                 if dx < th*w and dy < th*h:
                     intersec = (w-min(w,abs(v2[0][0]-v1[0][0])))
                     intersec *= (h-min(h,abs(v2[0][1]-v1[0][1])))
@@ -113,7 +113,7 @@ class GraphicalModel(object):
         algo.infer()
         i0 = self.indice.argsort()
         val = np.array(algo.arg())
-        return val[i0]
+        return val[i0], val
 
 
 if __name__=='__main__':
