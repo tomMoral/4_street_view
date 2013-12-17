@@ -1,112 +1,144 @@
-\documentclass[8pt]{beamer}
+\documentclass[12pt,a4paper]{article}
 
-\usepackage[orientation=portrait,size=A4,10pt]{beamerposter} 
+\usepackage{inputenc}
 \usepackage[english]{babel}
-\usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
 \usepackage{graphicx}
-\usepackage{geometry}
-\usepackage{amsmath,amssymb}
 \usepackage{epstopdf}
 \usepackage{url}
-\usepackage{scrextend}
+\usepackage{cite}
+\usepackage{color}
+\usepackage{titlesec}
 
-\changefontsizes{8pt}
+\titleformat*{\section}{\textcolor{Bleu}}
+
+\addtolength{\hoffset}{-1.5cm}
+\addtolength{\textwidth}{3.5cm}
 
 
 \begin{document}
 
-
 %%%%%%%%%%%%%%%%%%%%%% FRAME 1 %%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
 \begin{center}
-\Huge \textcolor{blue}{Scene Text Recognition} \normalsize \textcolor{black}\\
-\large Vincent BODIN \& Thomas MOREAU\\ \normalsize
+\Huge \color{blue}{Scene Text Recognition}\\
+\Large Vincent BODIN \& Thomas MOREAU
 \end{center}
 \hrulefill
 
 \vspace{3cm}
+
+
 \begin{abstract}
 \emph{Scene text recognition refers to finding automatic ways of extracting text in pictures of every day life. As computer vision is more and more successful, scene text recognition has naturally become a significant issue nowadays. Unlike OCR which is more or less well understood and implemented, scene text recognition still needs many improvement to be considered as a powerful tool. We implemented paper \cite{Mis} that explains how to extract words efficiently. A graphical model is introduced inside, with the creation of graph represented possible detected words, and algorithm TRW-S \cite{Kol} is used to extract the optimal one.}
 \end{abstract}
-
 
 \section{Introduction}
 
 
 
-\end{frame}
 
-
-
+\newpage
 %%%%%%%%%%%%%%%%%%%%%% FRAME 2 %%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}
-	reste de l'introduction
-\end{frame}
 
 
 
+
+
+
+
+
+
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%% FRAME 3 %%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}
-\section{Project}
-	
-	
-\end{frame}
 
 
 
+
+
+
+
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%% FRAME 4 %%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}
-	aa
-\end{frame}
 
 
 
+
+
+
+
+
+
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%% FRAME 5 %%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}
-	aa
-\end{frame}
 
 
 
 
+
+
+
+
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%% FRAME 6 %%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}
-	aa
-\end{frame}
 
 
 
 
+
+
+
+
+
+
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%% FRAME 7 %%%%%%%%%%%%%%%%%%%%%%
 
 
 
-\begin{frame}
-	aa
-\end{frame}
 
 
 
+
+
+
+
+
+
+\newpage
 %%%%%%%%%%%%%%%%%%%%%% FRAME 8 %%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}
+
+
+
+
+
+
+
+
 
 \bibliographystyle{unsrt}
 \bibliography{biblio}
-\end{frame}
+
 
 
 \end{document}

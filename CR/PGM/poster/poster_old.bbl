@@ -1,0 +1,33 @@
+\begin{thebibliography}{1}
+
+\bibitem{Mis}
+C.V.~Jawahar A.~Mishra, K.~Alahari.
+\newblock Top-down and bottom-up cues for scene text recognition.
+\newblock {\em Computer Vision and Pattern Recognition (CVPR), 2012 IEEE
+  Conference on}, pages 2687 -- 2694, June 2012.
+
+\bibitem{Kol}
+V.~Kolmogorov.
+\newblock Convergent tree-reweighted message passing for energy minimization.
+\newblock {\em IEEE Transactions on Pattern Analysis and Machine Intelligence
+  (PAMI)}, 2006.
+
+\bibitem{ICDAR}
+Icdar 2003, robust word recognition dataset.
+\newblock \url{http://algoval.essex.ac.uk/icdar/Datasets.html}.
+\newblock Accessed: 2013-11-30.
+
+\bibitem{Pearl}
+J.~Pearl.
+\newblock {\em Probabilistic Reasoning in Intelligent Systems: Networks of
+  Plausible Inference}.
+\newblock Morgan Kaufmann Publishers, 1988.
+
+\bibitem{Wain}
+T.~S.~Jaakkola M.~J.~Wainwright and A.~S. Willsky.
+\newblock Map estimation via agreement on (hyper)trees: Message-passing and
+  linear-programming approaches.
+\newblock {\em IEEE Transactions on Information Theory}, 51:3697 -- 3717,
+  November 2005.
+
+\end{thebibliography}
