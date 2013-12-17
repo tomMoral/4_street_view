@@ -33,11 +33,8 @@ lab = np.load(jp(base_dir, '{}_lab_char.npy'.format(args.dbchar)))
 enc = LabelEncoder()
 enc.fit(lab)
 
-w = 7
-h = 15
-
 from slide_char import SlidingWindow
-slide = SlidingWindow(w, h, 62)
+slide = SlidingWindow(1,1, 62)
 
 #If the model doesn't exist
 #Compute the character detection model
@@ -103,24 +100,24 @@ def res_th(res,th):
             X.append(r)
     return X
 
-'''
-for w in range(10,30,4):
-    for h in range(10,30,4):
+
+for w in range(10,20,2):
+    for h in range(25,30,1):
         print 'window size : (', w, ',', h , ')'
         slide.width = w
         slide.height = h
         res = slide.detection(im, 0.1, 0.2, pix=args.pix)
-        res2 = res_th(res, 0.8)
+        res2 = res_th(res, 0.4)
         window.extend(res2)
 '''
 
-w = 9
-h = 18
+w = 15
+h = 27
 slide.width = w
 slide.height = h
 res = slide.detection(im, 0.1, 0.2, pix=args.pix)
-window = res_th(res, 0.4)
-
+window = res_th(res, 0.1)
+'''
 np.save(args.im, window)
 
 from utils import display_char
@@ -139,10 +136,10 @@ gm = GraphicalModel(62)
 gm.prior_bg(words, enc)
 gm.fit(window, 1.25, enc, 1)
 
-valu = gm.predict()
+valu, val = gm.predict()
 
 word = ''
-for v in valu:
+for v in val:
     if v != 62:
         word += enc.inverse_transform(v)
 
