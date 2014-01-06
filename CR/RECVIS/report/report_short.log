@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.10.27)  6 JAN 2014 14:34
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.10.27)  6 JAN 2014 14:43
 entering extended mode
-**report.tex
-(C:\Users\Vincent\Documents\GitHub\4_street_view\CR\RECVIS\report\report.tex
+**report_short.tex
+(C:\Users\Vincent\Documents\GitHub\4_street_view\CR\RECVIS\report\report_short.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, arabic, armenian, assamese, basque, bengali
 , bokmal, bulgarian, catalan, coptic, croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, galic
@@ -472,7 +472,7 @@ File: pgfmodulematrix.code.tex 2010/08/24  (rcs-revision 1.4)
 ("C:\Program Files\MiKTeX 2.9\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarytopaths.code.tex"
 File: tikzlibrarytopaths.code.tex 2008/06/17 v2.10 (rcs-revision 1.2)
 )))
-(C:\Users\Vincent\Documents\GitHub\4_street_view\CR\RECVIS\report\report.aux
+(C:\Users\Vincent\Documents\GitHub\4_street_view\CR\RECVIS\report\report_short.aux
 
 LaTeX Warning: Label `eq:' multiply defined.
 
@@ -515,84 +515,114 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 31.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+
+LaTeX Warning: Citation `Mis' on page 1 undefined on input line 35.
+
+
+LaTeX Warning: Citation `Kol' on page 1 undefined on input line 35.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 51--52
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 70--71
+LaTeX Warning: Citation `Mis' on page 1 undefined on input line 53.
+
+
+LaTeX Warning: Citation `ICDARchar' on page 1 undefined on input line 64.
+
+
+LaTeX Warning: Citation `Char74K' on page 1 undefined on input line 64.
+
+
+LaTeX Warning: Citation `Dal2005' on page 1 undefined on input line 64.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
 
  []
+
+
+LaTeX Warning: Citation `scikit' on page 1 undefined on input line 66.
 
 [1
 
 {C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 88--90
+
+LaTeX Warning: Citation `ICDARword' on page 2 undefined on input line 71.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
 
  []
 
-[2] [3] <figures/dada1.png, id=32, 586.8324pt x 442.2924pt>
+[2] [3] <figures/dada1.png, id=35, 586.8324pt x 442.2924pt>
 File: figures/dada1.png Graphic file (type png)
  <use figures/dada1.png>
-Package pdftex.def Info: figures/dada1.png used on input line 177.
+Package pdftex.def Info: figures/dada1.png used on input line 170.
 (pdftex.def)             Requested size: 133.37674pt x 100.52382pt.
 
-<figures/dada2.png, id=34, 586.8324pt x 442.2924pt>
+<figures/dada2.png, id=37, 586.8324pt x 442.2924pt>
 File: figures/dada2.png Graphic file (type png)
  <use figures/dada2.png>
-Package pdftex.def Info: figures/dada2.png used on input line 178.
+Package pdftex.def Info: figures/dada2.png used on input line 171.
 (pdftex.def)             Requested size: 133.37674pt x 100.52382pt.
 
-<figures/dada3.png, id=35, 1689.6726pt x 922.8879pt>
+<figures/dada3.png, id=38, 1689.6726pt x 922.8879pt>
 File: figures/dada3.png Graphic file (type png)
  <use figures/dada3.png>
-Package pdftex.def Info: figures/dada3.png used on input line 179.
+Package pdftex.def Info: figures/dada3.png used on input line 172.
 (pdftex.def)             Requested size: 133.37674pt x 72.84679pt.
 
-<figures/puffTest.png, id=36, 363.759pt x 174.05025pt>
+<figures/puffTest.png, id=39, 363.759pt x 174.05025pt>
 File: figures/puffTest.png Graphic file (type png)
  <use figures/puffTest.png>
-Package pdftex.def Info: figures/puffTest.png used on input line 184.
+Package pdftex.def Info: figures/puffTest.png used on input line 177.
 (pdftex.def)             Requested size: 177.83113pt x 85.08882pt.
 
-<figures/puff.png, id=37, 1455.4375pt x 691.58376pt>
+<figures/puff.png, id=40, 1455.4375pt x 691.58376pt>
 File: figures/puff.png Graphic file (type png)
  <use figures/puff.png>
-Package pdftex.def Info: figures/puff.png used on input line 186.
+Package pdftex.def Info: figures/puff.png used on input line 179.
 (pdftex.def)             Requested size: 177.83113pt x 84.4955pt.
 
-<figures/00_00.jpg, id=38, 770.88pt x 578.16pt>
+<figures/00_00.jpg, id=41, 770.88pt x 578.16pt>
 File: figures/00_00.jpg Graphic file (type jpg)
  <use figures/00_00.jpg>
-Package pdftex.def Info: figures/00_00.jpg used on input line 191.
+Package pdftex.def Info: figures/00_00.jpg used on input line 184.
 (pdftex.def)             Requested size: 170.71652pt x 128.03368pt.
 
-<figures/beerResized.png, id=39, 853.38824pt x 651.03226pt>
+<figures/beerResized.png, id=42, 853.38824pt x 651.03226pt>
 File: figures/beerResized.png Graphic file (type png)
  <use figures/beerResized.png>
-Package pdftex.def Info: figures/beerResized.png used on input line 193.
+Package pdftex.def Info: figures/beerResized.png used on input line 186.
 (pdftex.def)             Requested size: 170.71652pt x 130.23395pt.
- [4]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 205.
-
-("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 205.
- [5 <C:/Users/Vincent/Documents/GitHub/4_street_view/CR/RECVIS/report/figures/dada1.png> <C:/Users/Vincent/Documents/Git
+ [4 <C:/Users/Vincent/Documents/GitHub/4_street_view/CR/RECVIS/report/figures/dada1.png> <C:/Users/Vincent/Documents/Git
 Hub/4_street_view/CR/RECVIS/report/figures/dada2.png> <C:/Users/Vincent/Documents/GitHub/4_street_view/CR/RECVIS/report/
 figures/dada3.png> <C:/Users/Vincent/Documents/GitHub/4_street_view/CR/RECVIS/report/figures/puffTest.png> <C:/Users/Vin
 cent/Documents/GitHub/4_street_view/CR/RECVIS/report/figures/puff.png (PNG copy)> <C:/Users/Vincent/Documents/GitHub/4_s
 treet_view/CR/RECVIS/report/figures/00_00.jpg> <C:/Users/Vincent/Documents/GitHub/4_street_view/CR/RECVIS/report/figures
 /beerResized.png>]
-<figures/beer2.png, id=52, 1095.09125pt x 817.0525pt>
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 198.
+
+("C:\Program Files\MiKTeX 2.9\tex\latex\base\omscmr.fd"
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 198.
+ <figures/beer2.png, id=49, 1095.09125pt x 817.0525pt>
 File: figures/beer2.png Graphic file (type png)
- <use figures/beer2.png>
-Package pdftex.def Info: figures/beer2.png used on input line 210.
+
+<use figures/beer2.png>
+Package pdftex.def Info: figures/beer2.png used on input line 203.
 (pdftex.def)             Requested size: 133.37674pt x 99.5132pt.
- [6 <C:/Users/Vincent/Documents/GitHub/4_street_view/CR/RECVIS/report/figures/beer2.png (PNG copy)>]
-(C:\Users\Vincent\Documents\GitHub\4_street_view\CR\RECVIS\report\report.bbl
+
+
+LaTeX Warning: Citation `Mis' on page 5 undefined on input line 207.
+
+[5 <C:/Users/Vincent/Documents/GitHub/4_street_view/CR/RECVIS/report/figures/beer2.png (PNG copy)>]
+(C:\Users\Vincent\Documents\GitHub\4_street_view\CR\RECVIS\report\report_short.bbl
 LaTeX Font Info:    Try loading font information for T1+cmtt on input line 17.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\t1cmtt.fd"
@@ -602,22 +632,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 31--35
 []\T1/cmr/m/n/10 Scikit-learn.  $\T1/cmtt/m/n/10 http : / / scikit-[]learn . org / stable / modules / svm . html #
  []
 
-) [7] (C:\Users\Vincent\Documents\GitHub\4_street_view\CR\RECVIS\report\report.aux)
+) [6] (C:\Users\Vincent\Documents\GitHub\4_street_view\CR\RECVIS\report\report_short.aux)
+
+LaTeX Warning: There were undefined references.
+
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
  11980 strings out of 493921
- 214417 string characters out of 3147275
- 259317 words of memory out of 3000000
+ 214489 string characters out of 3147275
+ 258289 words of memory out of 3000000
  14977 multiletter control sequences out of 15000+200000
  21061 words of font info for 57 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 56i,8n,55p,972b,309s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 56i,8n,55p,985b,309s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Vincent\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ectt1000.pk> <C:\Users\Vincent\AppData\
 Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm0700.pk> <C:\Users\Vincent\AppData\Local\MiKTeX\2.9\fonts\pk\ljf
-our\jknappen\ec\dpi600\ecbx1200.pk> <C:\Users\Vincent\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecti10
+our\jknappen\ec\dpi600\ecti1000.pk> <C:\Users\Vincent\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx12
 00.pk> <C:\Users\Vincent\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1000.pk> <C:\Users\Vincent\AppD
 ata\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1000.pk> <C:\Users\Vincent\AppData\Local\MiKTeX\2.9\fonts\pk
 \ljfour\jknappen\ec\dpi600\ecbx1440.pk> <C:\Users\Vincent\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ec
@@ -630,9 +663,9 @@ s/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi
 les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.
 pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
 ic/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on report.pdf (7 pages, 2988890 bytes).
+Output written on report_short.pdf (6 pages, 2986546 bytes).
 PDF statistics:
- 461 PDF objects out of 1000 (max. 8388607)
+ 454 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  53 words of extra memory for PDF output out of 10000 (max. 10000000)
 
